@@ -1,0 +1,8 @@
+1. La fiecare apasare a butonului NEW, existent pe layout-ul primei activitati, se va adauga un nou grup de controale (Name Surname, Email) conform imaginii HW1.png.
+2. Se va adauga un nou buton denumit SAVE, care va salva toate datele din formular astfel:
+-fiecare grupare (Name Surname, Email) va genera cate o instanta din clasa Student;
+-obiectele generate se vor trimite catre a doua activitate la declansarea evenimentului click pe butonul SAVE.
+3. In a doua activitate toate obiectele primite se vor afisa intr-un control de tip TextView. (se va utiliza metoda ToString() a clasei Student)
+4. La apasarea unui buton se va afisa o fereastra de dialog cu mesajul "Doriti salvarea studentilor adaugati?":
+-optiunea "No" va inchide activitatea si se va intoarce in prima activitate returnand mesajul "Obiectele nu au fost salvate!"
+-optiunea "Yes" va salva obiectele intr-o lista statica de obiecte definite la nivelul activitatii 2 si va returna spre activitatea principala mesajul "Studentii au fost salvati"; 
