@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DAM03</string>
+    <string name="btn_send_msg">Message to send!</string>
+    <string name="btn_send_data">Send data</string>
 </resources>
