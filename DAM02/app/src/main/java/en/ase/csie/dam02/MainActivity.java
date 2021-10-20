@@ -6,14 +6,22 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,7 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
     });
 
-
+    String[] arr = { "Paries,France", "PA,United States","Parana,Brazil",
+            "Padua,Italy", "Pasadena,CA,United States"};
+    DatePickerDialog picker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +54,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fullName = findViewById(R.id.etFullName);
         sendData = findViewById(R.id.btnSend);
         fullName.setOnClickListener(this);
+        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+        Spinner spinner = findViewById(R.id.spinner);
+        ListView listView =findViewById(R.id.listView);
+        EditText eText = findViewById(R.id.eText);
+        eText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(MainActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
         sendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +89,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 activityResultLauncher.launch(intent);
             }
         });
+
+        
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.select_dialog_item, arr);
+        autoCompleteTextView.setThreshold(2);
+        autoCompleteTextView.setAdapter(adapter);
+        spinner.setAdapter(adapter);
+        listView.setAdapter(adapter);
     }
 
     public void btnClick(View view)
