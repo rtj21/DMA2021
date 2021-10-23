@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
         CityAdapter cityAdapter = new CityAdapter(this, cities);
 
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, stringValues);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(this, R.layout.single_item, stringValues);
         listView.setAdapter(stringArrayAdapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             String value = stringValues[position];
-            TextView viewById = view.findViewById(android.R.id.text1);
+            TextView viewById = view.findViewById(R.id.text1);
             Log.d(TAG, "Clicked Item: " + value + ", from view: " + viewById.getText().toString());
         });
 
@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View layout, int position, long id) {
                 String value = stringValues[position];
-                TextView viewById = layout.findViewById(android.R.id.text1);
-                Log.d(TAG, "Long Clicked Item: " + value + ", from view: " + viewById.getText().toString());
+//                TextView viewById = layout.findViewById(android.R.id.text1);
+                TextView viewById = layout.findViewById(R.id.cityPopulation);
+
+                Log.d(TAG, "Long Clicked Item: " + value + ", population: " + viewById.getText().toString());
                 return true;
             }
         });
