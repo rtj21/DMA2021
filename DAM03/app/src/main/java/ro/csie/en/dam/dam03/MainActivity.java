@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             datePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    editTextDate.setText(day + "/" + (month +1) +"/" + year);
+                    editTextDate.setText(dayOfMonth + "/" + (month +1) +"/" + year);
                 }
             }, year, month, day);
             datePicker.show();
