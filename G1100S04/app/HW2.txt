@@ -1,0 +1,14 @@
+Students should create a model class (freely chosen) with attributes that should map on as many types of controls as possible that must be added onto the activity layout.
+Students should get the values from the controls and create an instance of an object.
+The types of controls mandatory to be used are:
+- ImageView (value from resources, given as a name)
+- SeekBar*
+- RatingBar*
+- ChipGroup with Chip
+- CheckBox*
+- RadioGroup with RadioButton*
+- Switch*
+- EditText (at least two, one with data filter)*
+- Spinner*
+- CaldendarView*
+- ProgressBar which should reflect the completeness stage of the form with the controls marked with *
