@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DAM05</string>
+    <string name="btn_display_image">Display image</string>
+    <string name="iv_content_descrip">Remy mouse</string>
 </resources>
