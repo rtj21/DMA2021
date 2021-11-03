@@ -6,11 +6,12 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
-public class AsyncTask extends android.os.AsyncTask<Integer, Void, Bitmap> {
+public class AsyncTask extends android.os.AsyncTask<Integer, Integer, Bitmap> {
 
     public interface MyAsyncTaskListener
     {
         void onPostExecuteListener(Bitmap result);
+        void onPublishProgressListener(Integer integer);
     }
     private MyAsyncTaskListener asyncTaskListener;
 
@@ -31,16 +32,20 @@ public class AsyncTask extends android.os.AsyncTask<Integer, Void, Bitmap> {
     }
 
     @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
+    protected void onProgressUpdate(Integer... values) {
+        if(asyncTaskListener != null)
+            asyncTaskListener.onPublishProgressListener(values[0]);
     }
 
     @Override
     protected Bitmap doInBackground(Integer... integers) {
         Bitmap result = null;
         try {
-            int duration = integers[0];
-            Thread.sleep(duration);
+            int duration = integers[0]/1000;
+            for(int i=0; i<duration; i++) {
+                Thread.sleep(1000);
+                publishProgress(i+1);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

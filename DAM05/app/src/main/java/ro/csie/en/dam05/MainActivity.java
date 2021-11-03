@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import java.util.concurrent.Callable;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
     AsyncTask getImageAsyncTaskImpl;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imageView = findViewById(R.id.imageView);
         getImageAsyncTaskImpl = new AsyncTask(this);
+        progressBar = findViewById(R.id.progressBar);
     }
 
     public void getImage(View view)
@@ -37,7 +40,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "UI Thread accessed from the async task impl using a listener!");
                 imageView.setImageBitmap(result);
             }
+
+            @Override
+            public void onPublishProgressListener(Integer integer) {
+                progressBar.setProgress(integer);
+            }
         });
+        progressBar.setMax(3);
         getImageAsyncTaskImpl.execute(3000);
     }
 
