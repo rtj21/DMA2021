@@ -17,18 +17,28 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     ImageView imageView;
     AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+    AsyncTask getImageAsyncTaskImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageView = findViewById(R.id.imageView);
+        getImageAsyncTaskImpl = new AsyncTask(this);
     }
 
     public void getImage(View view)
     {
 //        getImageThreadImpl(3000);
-        getImageCallableImpl(3000);
+//        getImageCallableImpl(3000);
+        getImageAsyncTaskImpl.setAsyncTaskListener(new AsyncTask.MyAsyncTaskListener() {
+            @Override
+            public void onPostExecuteListener(Bitmap result) {
+                Log.d(TAG, "UI Thread accessed from the async task impl using a listener!");
+                imageView.setImageBitmap(result);
+            }
+        });
+        getImageAsyncTaskImpl.execute(3000);
     }
 
     private void getImageCallableImpl(int duration) {
