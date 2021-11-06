@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
                         //1. parse the json result (recipeJSONArray) to a list of objects of type Recipe
                         List<Recipe> result = RecipeJsonParser.fromJson(recipeJSONArray);
                         //2. add them to the collection
-                        recipes.addAll(result);
+                        if(!recipes.containsAll(result))
+                            recipes.addAll(result);
+
                         for (Recipe recipe: recipes) {
                             Log.d(TAG, "Recipe: " + recipe);
                         }
