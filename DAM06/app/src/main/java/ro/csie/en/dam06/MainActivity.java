@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 HttpConnectionService httpConnectionService = new HttpConnectionService(RECIPE_JSON);
                 String recipeJSONArray = httpConnectionService.getData();
-                Log.d(TAG, "JSONRecipes: " + recipeJSONArray);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -39,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
                         List<Recipe> result = RecipeJsonParser.fromJson(recipeJSONArray);
                         //2. add them to the collection
                         recipes.addAll(result);
+                        for (Recipe recipe: recipes) {
+                            Log.d(TAG, "Recipe: " + recipe);
+                        }
                     }
                 });
             }
