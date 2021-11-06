@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = findViewById(R.id.button);
+        recipes.add(new Recipe("Test1", "Test2", "Test3", 1, "Test4"));
+
     }
 
     public void getJson(View view)
