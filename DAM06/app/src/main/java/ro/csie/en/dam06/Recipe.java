@@ -24,6 +24,46 @@ public class Recipe
         this.categorie = categorie;
     }
 
+    public String getDenumire() {
+        return denumire;
+    }
+
+    public void setDenumire(String denumire) {
+        this.denumire = denumire;
+    }
+
+    public String getDescriere() {
+        return descriere;
+    }
+
+    public void setDescriere(String descriere) {
+        this.descriere = descriere;
+    }
+
+    public String getDataAdaugarii() {
+        return dataAdaugarii;
+    }
+
+    public void setDataAdaugarii(String dataAdaugarii) {
+        this.dataAdaugarii = dataAdaugarii;
+    }
+
+    public int getCalorii() {
+        return calorii;
+    }
+
+    public void setCalorii(int calorii) {
+        this.calorii = calorii;
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +

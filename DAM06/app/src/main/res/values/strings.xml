@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DAM06</string>
     <string name="btn_get_json">GetData</string>
+    <string name="btn_post_json">POST DATA</string>
 </resources>
