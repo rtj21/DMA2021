@@ -9,6 +9,12 @@ public class RestApiAdapter {
     {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint("https://api.json-generator.com")
+                .setRequestInterceptor(new RequestInterceptor() {
+                    @Override
+                    public void intercept(RequestFacade request) {
+                        request.addHeader("Authorization", TOKEN);
+                    }
+                })
                 .build();
         return  restAdapter.create(DataService.class);
     }
