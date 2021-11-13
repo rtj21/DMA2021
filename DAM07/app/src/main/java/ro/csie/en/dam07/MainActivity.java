@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+//import retrofit.RetrofitError;
+//import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,20 +25,40 @@ public class MainActivity extends AppCompatActivity {
     public void getData(View view)
     {
         DataService dataService = new RestApiAdapter().getData();
-        dataService.getDataObjects(new Callback<ObjectCollection>() {
+        Call<ObjectCollection> dataObjects = dataService.getDataObjects();
+        dataObjects.enqueue(new Callback<ObjectCollection>() {
             @Override
-            public void success(ObjectCollection objectCollection, Response response) {
-                Log.d(TAG, "Response code: " + response.getStatus());
-                for (DataObject dataObject : objectCollection.valori) {
-                    String value = dataObject.getValue();
-                    Log.d(TAG, "Value: " + value);
+            public void onResponse(Call<ObjectCollection> call, Response<ObjectCollection> response) {
+                Log.d(TAG, "Response code: " + response.code());
+                if(response.code() == 200) {
+                    ObjectCollection objectCollection = response.body();
+                    for (DataObject dataObject : objectCollection.valori) {
+                        String value = dataObject.getValue();
+                        Log.d(TAG, "Value: " + value);
+                    }
                 }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                    Log.d(TAG, "Error: " + error.getMessage());
+            public void onFailure(Call<ObjectCollection> call, Throwable t) {
+                Log.d(TAG, "Error: " + t.getMessage());
             }
         });
+
+//        dataService.getDataObjects(new Callback<ObjectCollection>() {
+//            @Override
+//            public void success(ObjectCollection objectCollection, Response response) {
+//                Log.d(TAG, "Response code: " + response.getStatus());
+//                for (DataObject dataObject : objectCollection.valori) {
+//                    String value = dataObject.getValue();
+//                    Log.d(TAG, "Value: " + value);
+//                }
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                    Log.d(TAG, "Error: " + error.getMessage());
+//            }
+//        });
     }
 }
