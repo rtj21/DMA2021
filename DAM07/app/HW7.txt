@@ -1,0 +1,4 @@
+1. Gasiti o resursa (imagine) de pe Internet cu dimensiune foarte mare (>100Mb);
+2. Creati o aplicatie Android care sa permita descarcarea resursei si afisarea imaginii.
+3. Pe parcursul descarcarii folositi un progress bar care sa afiseze cati octeti au fost descarcati (%) cu actualizare la un interval de 500 ms (0.5 s);
+4. Controlul progress bar trebuie sa fie sincronizat la nivel de octeti descarcati.
