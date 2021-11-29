@@ -25,6 +25,7 @@ public class GreenFragment extends Fragment {
         super.onAttach(context);
         if(context instanceof OnGreenFragmentListener)
             greenFrgCallback = (OnGreenFragmentListener) context;
+        
     }
 
     @Nullable
