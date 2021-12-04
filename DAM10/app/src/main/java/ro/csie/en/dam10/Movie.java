@@ -2,6 +2,7 @@ package ro.csie.en.dam10;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -24,6 +25,13 @@ public class Movie implements Serializable {
         this.movieTitle = movieTitle;
         this.movieGenre = movieGenre;
         this.movieBudget = movieBudget;
+    }
+
+    @Ignore
+    public Movie(String title, String genre, Double budget) {
+        this.movieTitle = title;
+        this.movieGenre = genre;
+        this.movieBudget = budget;
     }
 
     @Override

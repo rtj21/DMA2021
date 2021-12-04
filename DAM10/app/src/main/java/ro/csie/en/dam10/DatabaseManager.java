@@ -20,9 +20,11 @@ public abstract class DatabaseManager extends RoomDatabase {
             {
                 databaseManager = Room.databaseBuilder(context, DatabaseManager.class, DB_NAME)
                         .fallbackToDestructiveMigration()
+                        .allowMainThreadQueries()
                         .build();
             }
         }
         return databaseManager;
     }
+    public abstract MovieDao getMovieDao();
 }
