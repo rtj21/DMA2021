@@ -29,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        databaseManager = DatabaseManager.getInstance(this);
+        movieDao = databaseManager.getMovieDao();
         lvMovies = findViewById(R.id.lvMovie);
         fabAddMovie = findViewById(R.id.floatingActionButton);
-        ArrayAdapter<String> movieAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
-        lvMovies.setAdapter(movieAdapter);
+        setListViewAdapter();
         fabAddMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,8 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_MOVIE_REQUEST_CODE);
             }
         });
-        databaseManager = DatabaseManager.getInstance(this);
-        movieDao = databaseManager.getMovieDao();
+
+    }
+
+    private void setListViewAdapter() {
+        List<Movie> all = movieDao.getAll();
+        movieList.addAll(all);
+        ArrayAdapter<String> movieAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
+        lvMovies.setAdapter(movieAdapter);
     }
 
     @Override
