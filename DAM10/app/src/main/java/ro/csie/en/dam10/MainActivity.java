@@ -1,39 +1,47 @@
 package ro.csie.en.dam10;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int ADD_MOVIE_REQUEST_CODE = 100;
     private static final int UPDATE_MOVIE_REQUEST_CODE = 200;
+    private static final String TAG = MainActivity.class.getName();
     private ListView lvMovies;
     private FloatingActionButton fabAddMovie;
     private List<Movie> movieList = new ArrayList<>();
 
     private DatabaseManager databaseManager;
     private MovieDao movieDao;
-
+    private List<Integer> writtenMovies = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +50,31 @@ public class MainActivity extends AppCompatActivity {
         movieDao = databaseManager.getMovieDao();
         lvMovies = findViewById(R.id.lvMovie);
         fabAddMovie = findViewById(R.id.floatingActionButton);
+        List<Movie> all = movieDao.getAll();
+        movieList.addAll(all);
+        try {
+            FileInputStream fis = openFileInput("movies.bin");
+            int id;
+            while((id = fis.read()) != -1)
+            {
+                int bytes = 0;
+                for (Movie movie : movieList) {
+                    if (movie.getMovieId() == id) {
+                        int position = movieList.indexOf(movie);
+                        writtenMovies.add(position);
+                        bytes += movie.getMovieTitle().length() + movie.getMovieGenre().length() + 8;
+                        Log.d(TAG, "id: " + id + ", position: "+position + ", bytes: " + bytes);
+                        break;
+                    }
+                }
+                fis.skip(bytes);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setListViewAdapter();
         fabAddMovie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,9 +86,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListViewAdapter() {
-        List<Movie> all = movieDao.getAll();
-        movieList.addAll(all);
-        ArrayAdapter<String> movieAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
+
+        ArrayAdapter<String> movieAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+                View view = super.getView(position, convertView, parent);
+                if(writtenMovies.contains(position)) {
+                    Log.d(TAG, "Item getview: " + position);
+                    view.setBackgroundColor(Color.GREEN);
+                }
+                return view;
+
+            }
+        };
         lvMovies.setAdapter(movieAdapter);
         lvMovies.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
