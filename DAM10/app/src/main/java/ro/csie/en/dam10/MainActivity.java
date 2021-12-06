@@ -4,13 +4,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_MOVIE_REQUEST_CODE);
             }
         });
-
     }
 
     private void setListViewAdapter() {
@@ -49,6 +57,36 @@ public class MainActivity extends AppCompatActivity {
         movieList.addAll(all);
         ArrayAdapter<String> movieAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, movieList);
         lvMovies.setAdapter(movieAdapter);
+        lvMovies.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setBackgroundColor(Color.GREEN);
+                writeMovie(movieList.get(position));
+                return true;
+            }
+        });
+    }
+
+    private void writeMovie(Movie movie) {
+        try {
+            FileOutputStream fos = openFileOutput("movies.bin", MODE_APPEND);
+            fos.write((int) movie.getMovieId());
+            fos.write(movie.getMovieTitle().getBytes(StandardCharsets.UTF_8));
+            fos.write(movie.getMovieGenre().getBytes(StandardCharsets.UTF_8));
+            fos.write(doubleToByteArray(movie.getMovieBudget()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private byte[] doubleToByteArray(Double movieBudget) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        dataOutputStream.writeDouble(movieBudget);
+        dataOutputStream.flush();
+        return byteArrayOutputStream.toByteArray();
     }
 
     @Override
@@ -73,9 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
             }
         }
-
     }
 }
