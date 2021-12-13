@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Entity(tableName = "movie")
 public class Movie implements Serializable {
 
+
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private long movieId;

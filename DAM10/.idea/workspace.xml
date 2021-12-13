@@ -12,18 +12,25 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11bd5dc9-76cc-4f6d-8d92-a079436272e7" name="Default Changelist" comment="DAM10">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/AddMovieActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_movie.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterDir="false" />
+    <list default="true" id="11bd5dc9-76cc-4f6d-8d92-a079436272e7" name="Default Changelist" comment="DAM10-11">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/MovieChart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/SettingsActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_movie_chart.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_signin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/settings_menu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/root_preferences.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/MovieDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/MovieDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +49,8 @@
         <option value="Interface" />
         <option value="Class" />
         <option value="valueResourceFile" />
+        <option value="resourceFile" />
+        <option value="layoutResourceFile_vertical" />
       </list>
     </option>
   </component>
@@ -65,6 +74,12 @@
   </component>
   <component name="RecentsManager">
     <key name="android.template.-2111640843">
+      <recent name="ro.csie.en.dam10" />
+    </key>
+    <key name="android.template.-2147382422">
+      <recent name="ro.csie.en.dam10" />
+    </key>
+    <key name="android.template.-2047419882">
       <recent name="ro.csie.en.dam10" />
     </key>
   </component>
@@ -157,9 +172,22 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="DAM10" />
-    <option name="LAST_COMMIT_MESSAGE" value="DAM10" />
+    <MESSAGE value="DAM10-11" />
+    <option name="LAST_COMMIT_MESSAGE" value="DAM10-11" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/ro/csie/en/dam10/MovieChart.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

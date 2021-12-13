@@ -2,12 +2,19 @@ package ro.csie.en.dam10;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseManager databaseManager;
     private MovieDao movieDao;
     private List<Integer> writtenMovies = new ArrayList<>();
+    private Map<String, Integer> movieStats;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +89,70 @@ public class MainActivity extends AppCompatActivity {
         fabAddMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddMovieActivity.class);
-                startActivityForResult(intent, ADD_MOVIE_REQUEST_CODE);
+                AlertDialog alertDialog = createCredentialsDialog();
+                alertDialog.show();
             }
         });
+
+        //graphics example
+        movieStats = computeMovieList(movieList);
+        setContentView(new MovieChart(this, movieStats));
+
+    }
+
+    private AlertDialog createCredentialsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.dialog_signin, null)).setPositiveButton(R.string.signin, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        return builder.create();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mInflater = getMenuInflater();
+        mInflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.settings:
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+   
+
+    private Map<String, Integer> computeMovieList(List<Movie> movieList) {
+        if(movieList == null || movieList.isEmpty())
+            return null;
+        Map<String, Integer> data = new HashMap<>();
+        for(Movie movie: movieList)
+        {
+            if(data.containsKey(movie.getMovieGenre()))
+            {
+                Integer currValue = data.get(movie.getMovieGenre());
+                data.put(movie.getMovieGenre(), currValue+1);
+            }
+            else
+                data.put(movie.getMovieGenre(), 1);
+        }
+        return data;
     }
 
     private void setListViewAdapter() {

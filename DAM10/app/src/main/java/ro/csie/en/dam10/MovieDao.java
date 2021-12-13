@@ -23,6 +23,9 @@ public interface MovieDao {
     @Update
     int update(Movie movie);
 
+    @Update
+    int update(List<Movie> movies);
+
     @Delete
     int delete(Movie movie);
 }
